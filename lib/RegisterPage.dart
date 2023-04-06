@@ -65,9 +65,9 @@ class _RegisterPageState extends State<RegisterPage> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => HomePage()));
-                },
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => HomePage()));
+                  },
                   child: Text('Register'),
                 ),
               ),
