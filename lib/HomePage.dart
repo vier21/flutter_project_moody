@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'StoryPage.dart';
+import 'ResultPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,7 +11,14 @@ class _HomePageState extends State<HomePage> {
   String _selectedMood = 'happy';
   int _selectedIntensity = 1;
 
-  List<String> _moods = [    'happy',    'sad',    'angry',    'tired',    'anxious',    'excited'  ];
+  List<String> _moods = [
+    'happy',
+    'sad',
+    'angry',
+    'tired',
+    'anxious',
+    'excited'
+  ];
 
   List<Widget> _buildMoodButtons() {
     return _moods.map((mood) {
@@ -47,7 +56,8 @@ class _HomePageState extends State<HomePage> {
           },
           child: Text('$intensity'),
           style: ElevatedButton.styleFrom(
-            primary: _selectedIntensity == intensity ? Colors.blue : Colors.grey,
+            primary:
+                _selectedIntensity == intensity ? Colors.blue : Colors.grey,
             onPrimary: Colors.white,
             shape: CircleBorder(),
             padding: EdgeInsets.all(20.0),
@@ -98,6 +108,36 @@ class _HomePageState extends State<HomePage> {
                 child: Text('Save'),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.blue,
+                  onPrimary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                ),
+              ),
+              SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => StoryPage()));
+                },
+                child: Text('Ceritakan Hari Anda'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.grey[800],
+                  onPrimary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                ),
+              ),
+              SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => ResultPage()));
+                },
+                child: Text('Kualitas Tidur'),
+                style: ElevatedButton.styleFrom(
+                  primary: Color.fromARGB(255, 118, 44, 44),
                   onPrimary: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
