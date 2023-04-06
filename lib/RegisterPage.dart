@@ -20,15 +20,17 @@ class _RegisterPageState extends State<RegisterPage> {
         body: Stack(
           children: [
             Container(
-              margin: EdgeInsets.only(top: height * 0.15),
-              height: height * 0.85,
+              margin: EdgeInsets.only(top: height * 0.15, bottom: height * 0.15),
+              height: height * 0.7,
               decoration: BoxDecoration(
                   color: Color.fromARGB(194, 167, 169, 45),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      topRight: Radius.circular(50))),
+                  borderRadius: BorderRadius.all(Radius.circular(100))),
               child: ListView(
                 children: [
+
+                  SizedBox(
+                    height: height * 0.05,
+                  ),
                   Text(
                     'Signup'.toUpperCase(),
                     style: GoogleFonts.alkalami (
@@ -38,7 +40,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         letterSpacing: 5),
                     textAlign: TextAlign.center,
                   ),
-                  
                   Center(
                     child: Container(
                       height: 1,
@@ -46,6 +47,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       color: Color.fromARGB(255, 0, 0, 0),
                     ),
                   ),
+
+
+
                   SizedBox(
                     height: height * 0.06,
                   ),
@@ -73,6 +77,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         )),
                   ),
+
+
+
                   SizedBox(
                     height: height * 0.04,
                   ),
@@ -100,6 +107,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         )),
                   ),
+
+
+
                   SizedBox(
                     height: height * 0.04,
                   ),
@@ -127,6 +137,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         )),
                   ),
+
+
+
                   SizedBox(
                     height: height * 0.04,
                   ),
@@ -155,6 +168,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         )),
                   ),
+
+
+                  
                   SizedBox(
                     height: height * 0.07,
                   ),
