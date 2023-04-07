@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,12 +25,28 @@ class _StoryPage extends State<StoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MAMI'),
+        title: Text('Story Page'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text(
+              'Ceritakan Hari Anda'.toUpperCase(),
+              style: GoogleFonts.alkalami (
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 0, 0, 0),
+                letterSpacing: 3),
+              textAlign: TextAlign.center,
+              ),
+              
+
+            Image(
+              image: AssetImage('assets/images/mood.jpg'),
+              width: 200,
+              height: 150,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
@@ -57,6 +74,7 @@ class _StoryPage extends State<StoryPage> {
                           child: Text('OK'),
                           onPressed: () {
                             Navigator.of(context).pop();
+                            Navigator.of(context).pop();
                           },
                         ),
                       ],
@@ -68,6 +86,6 @@ class _StoryPage extends State<StoryPage> {
           ],
         ),
       ),
-    );
+  );
   }
 }

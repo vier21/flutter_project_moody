@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                       context, MaterialPageRoute(builder: (_) => ResultPage()));
                 },
-                child: Text('Kualitas Tidur'),
+                child: Text('ResultPage'),
                 style: ElevatedButton.styleFrom(
                   primary: Color.fromARGB(255, 118, 44, 44),
                   onPrimary: Colors.white,
