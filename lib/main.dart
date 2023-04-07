@@ -8,7 +8,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,55 +26,68 @@ class _LoginDemoState extends State<LoginDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text("Login Page"),
-      ),
-      body: SingleChildScrollView(
+      backgroundColor: Color.fromARGB(255, 187, 186, 186),
+      body: SafeArea(
         child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 60.0),
-              child: Center(
-                child: Container(
-                    margin: const EdgeInsets.all(20.0),
-                    width: 200,
-                    height: 150,
-                    /*decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(50.0)),*/
-                    child: Image.asset('assets/images/flutter-logo.png')),
-              ),
+          children: [
+            const SizedBox(
+              height: 50,
             ),
+            //logo
+            const Icon(
+              Icons.lock,
+              size: 100,
+            ),
+
+            const SizedBox(
+              height: 50,
+            ),
+
             Padding(
-              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: TextField(
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Email',
-                    hintText: 'Enter valid email id as abc@gmail.com'),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade400),
+                  ),
+                  fillColor: Colors.grey.shade200,
+                  filled: true,
+                  hintText: 'Username',
+                ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15, bottom: 0),
-              //padding: EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
 
+            const SizedBox(
+              height: 30,
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: TextField(
                 obscureText: true,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
-                    hintText: 'Enter secure password'),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade400),
+                  ),
+                  fillColor: Colors.grey.shade200,
+                  filled: true,
+                  hintText: 'Password',
+                ),
               ),
             ),
+
             Container(
               height: 50,
               width: 250,
               margin: const EdgeInsets.all(20.0),
               decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                  color: Colors.black, borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: () {
                   Navigator.push(
@@ -90,14 +102,80 @@ class _LoginDemoState extends State<LoginDemo> {
             SizedBox(
               height: 10,
             ),
+
+            //login 2 akun
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Divider(
+                      thickness: 0.5,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Text(
+                      "Login dengan cara lain",
+                      style: TextStyle(color: Color.fromARGB(255, 31, 28, 28)),
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      thickness: 0.5,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(20.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white, width: 1.0),
+                    borderRadius: BorderRadius.circular(16),
+                    color: Color.fromARGB(255, 218, 217, 217),
+                  ),
+                  child: Image.asset(
+                    'assets/images/googlelogo.png',
+                    height: 40,
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(20.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white, width: 1.0),
+                    borderRadius: BorderRadius.circular(16),
+                    color: Color.fromARGB(255, 218, 217, 217),
+                  ),
+                  child: Image.asset(
+                    'assets/images/applelogo.png',
+                    height: 40,
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(
+              height: 30,
+            ),
+
             TextButton(
               onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => RegisterPage()));
-                },
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => RegisterPage()));
+              },
               child: Text(
                 'Register',
-                style: TextStyle(color: Colors.blue, fontSize: 15),
+                style: TextStyle(
+                    color: Color.fromARGB(255, 31, 28, 28), fontSize: 15),
               ),
             ),
           ],
