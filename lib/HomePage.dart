@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'HealthPage.dart';
+import 'ProfileApp.dart';
 import 'StoryPage.dart';
 import 'ResultPage.dart';
 
@@ -149,9 +149,9 @@ class _HomePageState extends State<HomePage> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => HealthPage()));
+                      context, MaterialPageRoute(builder: (_) => ProfileApp()));
                 },
-                child: Text('Kualitas Kesehatan'),
+                child: Text('My profile'),
                 style: ElevatedButton.styleFrom(
                   primary: Color.fromARGB(255, 24, 3, 3),
                   onPrimary: Colors.white,

@@ -90,13 +90,14 @@ class _LoginDemoState extends State<LoginDemo> {
                   color: Colors.black, borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: () {
-                          final snackBar = SnackBar(content: Text('Akun berhasil dibuat! /// login '));
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          Future.delayed(Duration(seconds: 1), () {
-                            Navigator.pushReplacement(
-                                context, MaterialPageRoute(builder: (_) => HomePage()));
-                          });
-                        },
+                  final snackBar = SnackBar(
+                      content: Text('Akun berhasil dibuat! /// login '));
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  Future.delayed(Duration(seconds: 1), () {
+                    Navigator.pushReplacement(
+                        context, MaterialPageRoute(builder: (_) => HomePage()));
+                  });
+                },
                 child: Text(
                   'Login',
                   style: TextStyle(color: Colors.white, fontSize: 25),
