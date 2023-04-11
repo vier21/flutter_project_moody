@@ -3,6 +3,8 @@ import 'package:flutter_tubes_satu/HealthPage.dart';
 import 'ProfileApp.dart';
 import 'StoryPage.dart';
 import 'ResultPage.dart';
+import 'package:flutter_emoji_feedback/flutter_emoji_feedback.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,40 +12,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String _selectedMood = 'happy';
+
   int _selectedIntensity = 1;
-
-  List<String> _moods = [
-    'happy',
-    'sad',
-    'angry',
-    'tired',
-    'anxious',
-    'excited'
-  ];
-
-  List<Widget> _buildMoodButtons() {
-    return _moods.map((mood) {
-      return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.0),
-        child: ElevatedButton(
-          onPressed: () {
-            setState(() {
-              _selectedMood = mood;
-            });
-          },
-          child: Text(mood),
-          style: ElevatedButton.styleFrom(
-            primary: _selectedMood == mood ? Colors.blue : Colors.grey,
-            onPrimary: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-          ),
-        ),
-      );
-    }).toList();
-  }
 
   List<Widget> _buildIntensityButtons() {
     return List.generate(5, (index) {
@@ -87,11 +57,12 @@ class _HomePageState extends State<HomePage> {
                 'How are you feeling today?',
                 style: TextStyle(fontSize: 24.0),
               ),
-              SizedBox(height: 16.0),
-              Wrap(
-                spacing: 8.0,
-                children: _buildMoodButtons(),
+               EmojiFeedback(
+                onChanged: (value) {
+                  print(value);
+                },
               ),
+              SizedBox(height: 16.0),
               SizedBox(height: 32.0),
               Text(
                 'How intense is that feeling?',
