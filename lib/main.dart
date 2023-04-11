@@ -23,6 +23,24 @@ class LoginDemo extends StatefulWidget {
 }
 
 class _LoginDemoState extends State<LoginDemo> {
+  String username = '';
+  String password = '';
+  void _handleLogin() {
+    if (username.isEmpty || password.isEmpty) {
+      final snackBar =
+          SnackBar(content: Text('Username dan Password harus diisi'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else {
+      final snackBar =
+          SnackBar(content: Text('Akun berhasil dibuat! /// login '));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      Future.delayed(Duration(seconds: 1), () {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => HomePage()));
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,8 +62,13 @@ class _LoginDemoState extends State<LoginDemo> {
             ),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
               child: TextField(
+                onChanged: (value) {
+                  setState(() {
+                    username = value;
+                  });
+                },
                 decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
@@ -59,14 +82,17 @@ class _LoginDemoState extends State<LoginDemo> {
                 ),
               ),
             ),
-
             const SizedBox(
               height: 30,
             ),
-
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
               child: TextField(
+                onChanged: (value) {
+                  setState(() {
+                    password = value;
+                  });
+                },
                 obscureText: true,
                 decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(
@@ -89,23 +115,12 @@ class _LoginDemoState extends State<LoginDemo> {
               decoration: BoxDecoration(
                   color: Colors.black, borderRadius: BorderRadius.circular(20)),
               child: TextButton(
-                onPressed: () {
-                  final snackBar = SnackBar(
-                      content: Text('Akun berhasil dibuat! /// login '));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  Future.delayed(Duration(seconds: 1), () {
-                    Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (_) => HomePage()));
-                  });
-                },
+                onPressed: _handleLogin,
                 child: Text(
                   'Login',
                   style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 10,
             ),
 
             //login 2 akun
@@ -135,6 +150,7 @@ class _LoginDemoState extends State<LoginDemo> {
                 ],
               ),
             ),
+
             const SizedBox(
               height: 30,
             ),
