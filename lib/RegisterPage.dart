@@ -8,6 +8,25 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  String name = '';
+  String email = '';
+  String mobileNumber = '';
+  String password = '';
+  void _handleRegister() {
+    if (name.isEmpty || email.isEmpty|| mobileNumber.isEmpty|| password.isEmpty) {
+      final snackBar =
+          SnackBar(content: Text('Semua Kolom harus diisi'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else {
+      final snackBar =
+          SnackBar(content: Text('Akun berhasil dibuat!'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      Future.delayed(Duration(seconds: 1), () {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => HomePage()));
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -56,13 +75,18 @@ class _RegisterPageState extends State<RegisterPage> {
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: width * 0.05),
                     child: TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          name = value;
+                        });
+                      },
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           hintText: "Name",
                           hintStyle: TextStyle(
-                              fontWeight: FontWeight.bold, letterSpacing: 1.8),
-                          border: OutlineInputBorder(
+                            fontWeight: FontWeight.bold, letterSpacing: 1.8),
+                            border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                             borderSide: BorderSide(
                                 style: BorderStyle.solid, color: Color.fromARGB(255, 9, 0, 250)),
@@ -86,6 +110,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: width * 0.05),
                     child: TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          email = value;
+                        });
+                      },
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
@@ -116,10 +145,15 @@ class _RegisterPageState extends State<RegisterPage> {
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: width * 0.05),
                     child: TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          mobileNumber = value;
+                        });
+                      },
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
-                          hintText: "Mobile Number",
+                          hintText: "MobileNumber",
                           hintStyle: TextStyle(
                               fontWeight: FontWeight.bold, letterSpacing: 1.8),
                           border: OutlineInputBorder(
@@ -146,6 +180,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: width * 0.05),
                     child: TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          password = value;
+                        });
+                      },
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: true,
@@ -183,14 +222,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextButton(
-                        onPressed: () {
-                          final snackBar = SnackBar(content: Text('Akun berhasil dibuat!'));
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          Future.delayed(Duration(seconds: 1), () {
-                            Navigator.pushReplacement(
-                                context, MaterialPageRoute(builder: (_) => HomePage()));
-                          });
-                        },
+                        onPressed:_handleRegister,
                         child: Text(
                           'Register',
                           style: GoogleFonts.oswald(
