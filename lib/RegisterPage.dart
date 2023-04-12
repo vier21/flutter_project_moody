@@ -35,7 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
       decoration: BoxDecoration(
           color: Color.fromARGB(255, 126, 79, 24)),
       child: Scaffold(
-        backgroundColor: Color.fromARGB(0, 0, 254, 250),
+        backgroundColor: Colors.transparent,
         body: Stack(
           children: [
             Container(
