@@ -32,7 +32,7 @@ class _LoginDemoState extends State<LoginDemo> {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
       final snackBar =
-          SnackBar(content: Text('Akun berhasil dibuat! /// login '));
+          SnackBar(content: Text('Berhasil login '));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       Future.delayed(Duration(seconds: 1), () {
         Navigator.pushReplacement(
@@ -123,67 +123,10 @@ class _LoginDemoState extends State<LoginDemo> {
               ),
             ),
 
-            //login 2 akun
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Divider(
-                      thickness: 0.5,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text(
-                      "Login dengan cara lain",
-                      style: TextStyle(color: Color.fromARGB(255, 31, 28, 28)),
-                    ),
-                  ),
-                  Expanded(
-                    child: Divider(
-                      thickness: 0.5,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
             const SizedBox(
               height: 30,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(20.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white, width: 1.0),
-                    borderRadius: BorderRadius.circular(16),
-                    color: Color.fromARGB(255, 218, 217, 217),
-                  ),
-                  child: Image.asset(
-                    'assets/images/googlelogo.png',
-                    height: 40,
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(20.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white, width: 1.0),
-                    borderRadius: BorderRadius.circular(16),
-                    color: Color.fromARGB(255, 218, 217, 217),
-                  ),
-                  child: Image.asset(
-                    'assets/images/applelogo.png',
-                    height: 40,
-                  ),
-                ),
-              ],
-            ),
-
+            
             const SizedBox(
               height: 30,
             ),

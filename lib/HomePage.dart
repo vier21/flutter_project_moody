@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tubes_satu/HealthPage.dart';
 import 'ProfileApp.dart';
 import 'StoryPage.dart';
 import 'ResultPage.dart';
@@ -111,21 +110,6 @@ class _HomePageState extends State<HomePage> {
                 child: Text('ResultPage'),
                 style: ElevatedButton.styleFrom(
                   primary: Color.fromARGB(255, 118, 44, 44),
-                  onPrimary: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                ),
-              ),
-              SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => HealthPage()));
-                },
-                child: Text('Health Page'),
-                style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 45, 235, 117),
                   onPrimary: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
