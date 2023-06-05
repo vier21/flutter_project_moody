@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'HomePage.dart';
 import 'RegisterPage.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MyApp());
 }
 
@@ -31,8 +34,7 @@ class _LoginDemoState extends State<LoginDemo> {
           SnackBar(content: Text('Username dan Password harus diisi'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
-      final snackBar =
-          SnackBar(content: Text('Berhasil login '));
+      final snackBar = SnackBar(content: Text('Berhasil login '));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       Future.delayed(Duration(seconds: 1), () {
         Navigator.pushReplacement(
@@ -126,7 +128,7 @@ class _LoginDemoState extends State<LoginDemo> {
             const SizedBox(
               height: 30,
             ),
-            
+
             const SizedBox(
               height: 30,
             ),

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "636586152857",
+    "project_id": "moodyapb",
+    "storage_bucket": "moodyapb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636586152857:android:44e714810f8e9b52ed7908",
+        "android_client_info": {
+          "package_name": "com.example.flutter_tubes_satu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636586152857-vbt5inadppkqdjr7ugpfqmc4nd2ua064.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4g2Kr6o-LtAt4D0FUqniqDG7wcALxVw4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636586152857-vbt5inadppkqdjr7ugpfqmc4nd2ua064.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "636586152857-7g143hmghrophbi3ggr3ot2j9ln3k5hm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterTubesSatu"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

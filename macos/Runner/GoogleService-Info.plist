@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>636586152857-7g143hmghrophbi3ggr3ot2j9ln3k5hm.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.636586152857-7g143hmghrophbi3ggr3ot2j9ln3k5hm</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDloRbrRm1o7tn-SSMmv3qM1k_qB3ktnkY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>636586152857</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.flutterTubesSatu</string>
+	<key>PROJECT_ID</key>
+	<string>moodyapb</string>
+	<key>STORAGE_BUCKET</key>
+	<string>moodyapb.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:636586152857:ios:7ba9aa8f95eef7cded7908</string>
+</dict>
+</plist>
