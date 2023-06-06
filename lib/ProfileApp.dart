@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tubes_satu/ResultPage.dart';
+import 'package:flutter_tubes_satu/StoryPage.dart';
 import 'HomePage.dart';
 
 void main() {
@@ -78,6 +80,35 @@ class ProfilePage extends StatelessWidget {
                       _buildSkillChip(context, 'Minum'),
                     ],
                   ),
+                  //Cuman buat akses result page biar bisa coba coba *darrel
+                  SizedBox(height: 8),
+                  TextButton(onPressed: () {
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ResultPage()),
+                      );
+                    },
+                    child: Text('Navigate Result Page - page darrel'),
+                  ),
+                  SizedBox(height: 8),
+                  TextButton(onPressed: () {
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    },
+                    child: Text('Navigate Home Page - page xavier'),
+                  ),
+                  SizedBox(height: 8),
+                  TextButton(onPressed: () {
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => StoryPage()),
+                      );
+                    },
+                    child: Text('Navigate Story Page - page Fathur'),
+                  ),
+                  //Segini doang yang kuedit
                 ],
               ),
             ),
