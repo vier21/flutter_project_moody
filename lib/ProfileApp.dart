@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tubes_satu/ResultPage.dart';
-import 'package:flutter_tubes_satu/StoryPage.dart';
 import 'HomePage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:path/path.dart' as path;
+import 'ResultPage.dart';
+import 'StoryPage.dart';
 
 void main() {
   runApp(ProfileApp());
@@ -17,7 +20,51 @@ class ProfileApp extends StatelessWidget {
   }
 }
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  File? _image;
+
+  Future<void> _pickImage(ImageSource source) async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.getImage(source: source);
+
+    if (pickedImage != null) {
+      final imageFile = File(pickedImage.path);
+      final fileName = path.basename(imageFile.path);
+    }
+  }
+
+  Future<void> _changeProfilePicture() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Pilih Sumber Gambar"),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _pickImage(ImageSource.camera);
+              },
+              child: Text("Kamera"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _pickImage(ImageSource.gallery);
+              },
+              child: Text("Galeri"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,10 +80,14 @@ class ProfilePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image(
-                  image: AssetImage('assets/images/mood.jpg'),
-                  width: 200,
-                  height: 150,
+                GestureDetector(
+                  onTap: _changeProfilePicture,
+                  child: CircleAvatar(
+                    backgroundImage: _image != null
+                        ? FileImage(_image!) as ImageProvider
+                        : AssetImage('assets/images/mood.jpg'),
+                    radius: 75,
+                  ),
                 ),
                 SizedBox(height: 16),
                 Text(
@@ -82,28 +133,32 @@ class ProfilePage extends StatelessWidget {
                   ),
                   //Cuman buat akses result page biar bisa coba coba *darrel
                   SizedBox(height: 8),
-                  TextButton(onPressed: () {
+                  TextButton(
+                    onPressed: () {
                       Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const ResultPage()),
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ResultPage()),
                       );
                     },
                     child: Text('Navigate Result Page - page darrel'),
                   ),
                   SizedBox(height: 8),
-                  TextButton(onPressed: () {
+                  TextButton(
+                    onPressed: () {
                       Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
                       );
                     },
                     child: Text('Navigate Home Page - page xavier'),
                   ),
                   SizedBox(height: 8),
-                  TextButton(onPressed: () {
+                  TextButton(
+                    onPressed: () {
                       Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => StoryPage()),
+                        context,
+                        MaterialPageRoute(builder: (context) => StoryPage()),
                       );
                     },
                     child: Text('Navigate Story Page - page Fathur'),
@@ -114,6 +169,11 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _changeProfilePicture,
+        tooltip: 'Ganti Foto',
+        child: Icon(Icons.edit),
       ),
     );
   }
