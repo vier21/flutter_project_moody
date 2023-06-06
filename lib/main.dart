@@ -3,8 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'HomePage.dart';
 import 'RegisterPage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MyApp());
@@ -26,20 +27,34 @@ class LoginDemo extends StatefulWidget {
 }
 
 class _LoginDemoState extends State<LoginDemo> {
-  String username = '';
+  String email = '';
   String password = '';
-  void _handleLogin() {
-    if (username.isEmpty || password.isEmpty) {
-      final snackBar =
-          SnackBar(content: Text('Username dan Password harus diisi'));
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  void _handleLogin() async {
+    if (email.isEmpty || password.isEmpty) {
+      final snackBar = SnackBar(content: Text('Username dan Password harus diisi'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
-      final snackBar = SnackBar(content: Text('Berhasil login '));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      Future.delayed(Duration(seconds: 1), () {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => HomePage()));
-      });
+      try {
+        final UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        if (userCredential.user != null) {
+          final snackBar = SnackBar(content: Text('Berhasil login'));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          Future.delayed(Duration(seconds: 1), () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => HomePage()),
+            );
+          });
+        }
+      } catch (e) {
+        final snackBar = SnackBar(content: Text('Gagal login: ${e.toString()}'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
     }
   }
 
@@ -68,7 +83,7 @@ class _LoginDemoState extends State<LoginDemo> {
               child: TextField(
                 onChanged: (value) {
                   setState(() {
-                    username = value;
+                    email = value;
                   });
                 },
                 decoration: InputDecoration(
@@ -80,7 +95,7 @@ class _LoginDemoState extends State<LoginDemo> {
                   ),
                   fillColor: Colors.grey.shade200,
                   filled: true,
-                  hintText: 'Username',
+                  hintText: 'email',
                 ),
               ),
             ),
