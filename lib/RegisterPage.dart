@@ -32,8 +32,8 @@ class _RegisterPageState extends State<RegisterPage> {
         UserCredential user = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
         CollectionReference users =
-            await FirebaseFirestore.instance.collection('pengguna');
-        await users.add({
+            FirebaseFirestore.instance.collection('pengguna');
+        users.add({
           'email': email,
           'mobileNumber': mobileNumber,
           'name': name,

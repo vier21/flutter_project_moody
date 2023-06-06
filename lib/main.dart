@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'HomePage.dart';
+import 'ProfileApp.dart';
 import 'RegisterPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MyApp());
@@ -47,7 +47,7 @@ class _LoginDemoState extends State<LoginDemo> {
           Future.delayed(Duration(seconds: 1), () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => HomePage()),
+              MaterialPageRoute(builder: (_) => ProfileApp()),
             );
           });
         }
