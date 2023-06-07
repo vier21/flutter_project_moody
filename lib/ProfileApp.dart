@@ -30,11 +30,15 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<void> _pickImage(ImageSource source) async {
     final picker = ImagePicker();
-    final pickedImage = await picker.getImage(source: source);
+    final pickedImage = await picker.pickImage(source: source);
 
     if (pickedImage != null) {
       final imageFile = File(pickedImage.path);
       final fileName = path.basename(imageFile.path);
+      setState(() {
+        print(_image);
+        _image = imageFile;
+      });
     }
   }
 
