@@ -33,16 +33,16 @@ class _RegisterPageState extends State<RegisterPage> {
             email: email, password: password);
         CollectionReference users =
             FirebaseFirestore.instance.collection('pengguna');
-        users.add({
-          'email': email,
-          'mobileNumber': mobileNumber,
-          'name': name,
-          'password': password,
-          'uid': user.user!.uid
-        }).
-        then((value) => print("User Added"))
-        .catchError((error) => 
-        print("Failed to add user: $error"));
+        users
+            .add({
+              'email': email,
+              'mobileNumber': mobileNumber,
+              'name': name,
+              'password': password,
+              'uid': user.user!.uid
+            })
+            .then((value) => print("User Added"))
+            .catchError((error) => print("Failed to add user: $error"));
       } catch (err) {
         final snackBar = SnackBar(content: Text(err.toString()));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -50,7 +50,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
       Future.delayed(Duration(seconds: 1), () {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) =>LoginDemo()));
+            context, MaterialPageRoute(builder: (_) => LoginDemo()));
       });
     }
   }

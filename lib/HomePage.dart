@@ -4,14 +4,12 @@ import 'StoryPage.dart';
 import 'ResultPage.dart';
 import 'package:flutter_emoji_feedback/flutter_emoji_feedback.dart';
 
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-
   int _selectedIntensity = 1;
 
   List<Widget> _buildIntensityButtons() {
@@ -56,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                 'How are you feeling today?',
                 style: TextStyle(fontSize: 24.0),
               ),
-               EmojiFeedback(
+              EmojiFeedback(
                 onChanged: (value) {
                   print(value);
                 },
@@ -119,8 +117,8 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 32.0),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => ProfileApp()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => ProfilePage()));
                 },
                 child: Text('My profile'),
                 style: ElevatedButton.styleFrom(

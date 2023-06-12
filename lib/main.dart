@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -33,26 +34,35 @@ class _LoginDemoState extends State<LoginDemo> {
 
   void _handleLogin() async {
     if (email.isEmpty || password.isEmpty) {
-      final snackBar = SnackBar(content: Text('Username dan Password harus diisi'));
+      final snackBar =
+          SnackBar(content: Text('Username dan Password harus diisi'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
       try {
-        final UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        final UserCredential userCredential =
+            await _firebaseAuth.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
+
+        FirebaseFirestore.instance
+            .collection('pengguna')
+            .doc(userCredential.user!.email)
+            .set({'name': email.split('@')[0], 'mobileNumber ': '2319023'});
+
         if (userCredential.user != null) {
           final snackBar = SnackBar(content: Text('Berhasil login'));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           Future.delayed(Duration(seconds: 1), () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => ProfileApp()),
+              MaterialPageRoute(builder: (_) => ProfilePage()),
             );
           });
         }
       } catch (e) {
-        final snackBar = SnackBar(content: Text('Gagal login: ${e.toString()}'));
+        final snackBar =
+            SnackBar(content: Text('Gagal login: ${e.toString()}'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     }
