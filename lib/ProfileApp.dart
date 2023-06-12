@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tubes_satu/textbox.dart';
+import 'HomePage.dart';
+import 'ResultPage.dart';
+import 'StoryPage.dart';
 import 'textbox.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -14,6 +17,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   //users
   final currentuser = FirebaseAuth.instance.currentUser!;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //all user
   final userCollection = FirebaseFirestore.instance.collection("pengguna");
@@ -79,6 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data!.exists) {
             final userData = snapshot.data!.data() as Map<String, dynamic>;
+
             return ListView(
               children: [
                 const SizedBox(height: 50),
@@ -107,13 +112,14 @@ class _ProfilePageState extends State<ProfilePage> {
 
                 // username
                 MyTextBox(
-                  text: 'dika',
+                  text: userData['name'],
                   sectionName: 'username',
                   onPressed: () => editField('username'),
                 ),
                 //Mobile number
                 MyTextBox(
-                  text: '12345',
+                  text: userData['mobileNumber'] ??
+                      '', // Menggunakan null-aware operator untuk mengatasi jika mobileNumber null
                   sectionName: 'mobileNumber',
                   onPressed: () => editField('mobileNumber'),
                 ),
@@ -123,19 +129,51 @@ class _ProfilePageState extends State<ProfilePage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 25.0),
                   child: Text(
-                    'My details',
+                    'My posts',
                     style: TextStyle(color: Colors.grey),
                   ),
                 ),
+              SizedBox(height: 8),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ResultPage()),
+                      );
+                    },
+                    child: Text('Navigate Result Page - page darrel'),
+                  ),
+                  SizedBox(height: 8),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    },
+                    child: Text('Navigate Home Page - page xavier'),
+                  ),
+                  SizedBox(height: 8),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => StoryPage()),
+                      );
+                    },
+                    child: Text('Navigate Story Page - page Fathur'),
+                  ),
               ],
             );
+           
           } else if (snapshot.hasError) {
             return Center(
-              child: Text('Error${snapshot.error}'),
+              child: Text('Error: ${snapshot.error}'),
             );
           } else {
             return Center(
-              child: Text('Data tidak ditemukan'),
+              child: Text('Data not found'),
             );
           }
           return const Center(

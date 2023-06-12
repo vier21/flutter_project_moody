@@ -48,7 +48,7 @@ class _LoginDemoState extends State<LoginDemo> {
         FirebaseFirestore.instance
             .collection('pengguna')
             .doc(userCredential.user!.email)
-            .set({'name': email.split('@')[0], 'mobileNumber ': '2319023'});
+            .set({'name': email.split('@')[0], 'mobileNumber': ''});
 
         if (userCredential.user != null) {
           final snackBar = SnackBar(content: Text('Berhasil login'));
