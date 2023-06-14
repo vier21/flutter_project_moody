@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tubes_satu/textbox.dart';
+import 'package:image_picker/image_picker.dart';
 import 'HomePage.dart';
 import 'ResultPage.dart';
 import 'StoryPage.dart';
 import 'textbox.dart';
+import 'package:path/path.dart' as path;
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -15,6 +19,66 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  //image picker
+  File? _image;
+
+  CollectionReference users = FirebaseFirestore.instance.collection('pengguna');
+
+  Future<String?> getEmailFromFirestore() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    QuerySnapshot<Map<String, dynamic>> snapshot = await firestore
+        .collection('pengguna')
+        .where('email', isEqualTo: '')
+        .get();
+    print(snapshot.docs[0]);
+    if (snapshot.docs.isNotEmpty) {
+      String? email = snapshot.docs[0].data()['email'];
+      return email;
+    }
+    return null;
+  }
+
+  Future<void> _pickImage(ImageSource source) async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: source);
+
+    if (pickedImage != null) {
+      final imageFile = File(pickedImage.path);
+      final fileName = path.basename(imageFile.path);
+      setState(() {
+        print(_image);
+        _image = imageFile;
+      });
+    }
+  }
+
+  Future<void> _changeProfilePicture() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Pilih Sumber Gambar"),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _pickImage(ImageSource.camera);
+              },
+              child: Text("Kamera"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _pickImage(ImageSource.gallery);
+              },
+              child: Text("Galeri"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   //users
   final currentuser = FirebaseAuth.instance.currentUser!;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -88,9 +152,14 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 const SizedBox(height: 50),
                 //profile pic
-                const Icon(
-                  Icons.person,
-                  size: 72,
+                GestureDetector(
+                  onTap: _changeProfilePicture,
+                  child: CircleAvatar(
+                    backgroundImage: _image != null
+                        ? FileImage(_image!) as ImageProvider
+                        : AssetImage('assets/images/mood.jpg'),
+                    radius: 75,
+                  ),
                 ),
                 const SizedBox(height: 50),
                 //email
@@ -133,40 +202,39 @@ class _ProfilePageState extends State<ProfilePage> {
                     style: TextStyle(color: Colors.grey),
                   ),
                 ),
-              SizedBox(height: 8),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ResultPage()),
-                      );
-                    },
-                    child: Text('Navigate Result Page - page darrel'),
-                  ),
-                  SizedBox(height: 8),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
-                      );
-                    },
-                    child: Text('Navigate Home Page - page xavier'),
-                  ),
-                  SizedBox(height: 8),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => StoryPage()),
-                      );
-                    },
-                    child: Text('Navigate Story Page - page Fathur'),
-                  ),
+                SizedBox(height: 8),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ResultPage()),
+                    );
+                  },
+                  child: Text('Navigate Result Page - page darrel'),
+                ),
+                SizedBox(height: 8),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  },
+                  child: Text('Navigate Home Page - page xavier'),
+                ),
+                SizedBox(height: 8),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => StoryPage()),
+                    );
+                  },
+                  child: Text('Navigate Story Page - page Fathur'),
+                ),
               ],
             );
-           
           } else if (snapshot.hasError) {
             return Center(
               child: Text('Error: ${snapshot.error}'),
@@ -180,6 +248,11 @@ class _ProfilePageState extends State<ProfilePage> {
             child: CircularProgressIndicator(),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _changeProfilePicture,
+        tooltip: 'Ganti Foto',
+        child: Icon(Icons.edit),
       ),
     );
   }

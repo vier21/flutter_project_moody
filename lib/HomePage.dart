@@ -3,6 +3,8 @@ import 'ProfileApp.dart';
 import 'StoryPage.dart';
 import 'ResultPage.dart';
 import 'package:flutter_emoji_feedback/flutter_emoji_feedback.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,6 +13,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIntensity = 1;
+  String _selectedMood = "";
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   List<Widget> _buildIntensityButtons() {
     return List.generate(5, (index) {
@@ -56,7 +61,17 @@ class _HomePageState extends State<HomePage> {
               ),
               EmojiFeedback(
                 onChanged: (value) {
-                  print(value);
+                  if (value == 1) {
+                  } else if (value == 2) {
+                    _selectedMood = "Terrible";
+                  } else if (value == 3) {
+                    _selectedMood = "Bad";
+                  } else if (value == 4) {
+                    _selectedMood = "Good";
+                  } else if (value == 5) {
+                    _selectedMood = "Very good";
+                  }
+                  print(_selectedMood);
                 },
               ),
               SizedBox(height: 16.0),
@@ -73,7 +88,27 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 32.0),
               ElevatedButton(
                 onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => StoryPage()));
                   // TODO: save mood and intensity to database
+                  User? user = _auth.currentUser;
+                  if (user != null) {
+                    String uid = user.uid;
+                    FirebaseFirestore.instance
+                        .collection('moods')
+                        .add({
+                          'uid':
+                              uid, // Include the UID in the Firestore document
+                          'mood': _selectedMood,
+                          'intensity': _selectedIntensity,
+                        })
+                        .then((value) =>
+                            print('Mood and intensity saved to Firestore'))
+                        .catchError((error) =>
+                            print('Failed to save mood and intensity: $error'));
+                  } else {
+                    print('User not authenticated');
+                  }
                 },
                 child: Text('Save'),
                 style: ElevatedButton.styleFrom(
@@ -85,50 +120,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => StoryPage()));
-                },
-                child: Text('Ceritakan Hari Anda'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.grey[800],
-                  onPrimary: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                ),
-              ),
-              SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => ResultPage()));
-                },
-                child: Text('ResultPage'),
-                style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 118, 44, 44),
-                  onPrimary: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                ),
-              ),
-              SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => ProfilePage()));
-                },
-                child: Text('My profile'),
-                style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 24, 3, 3),
-                  onPrimary: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
