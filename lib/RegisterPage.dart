@@ -19,12 +19,14 @@ class _RegisterPageState extends State<RegisterPage> {
   String mobileNumber = '';
   String password = '';
   Future<void> _handleRegister() async {
+    
     if (name.isEmpty ||
         email.isEmpty ||
         mobileNumber.isEmpty ||
         password.isEmpty) {
       final snackBar = SnackBar(content: Text('Semua Kolom harus diisi'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      
     } else {
       final snackBar = SnackBar(content: Text('Akun berhasil dibuat!'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
