@@ -61,6 +61,7 @@ class _HomePageState extends State<HomePage> {
               ),
               EmojiFeedback(
                 onChanged: (value) {
+                  
                   if (value == 1) {
                   } else if (value == 2) {
                     _selectedMood = "Terrible";
@@ -98,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                         .collection('moods')
                         .add({
                           'uid':
-                              uid, // Include the UID in the Firestore document
+                              uid,
                           'mood': _selectedMood,
                           'intensity': _selectedIntensity,
                         })
